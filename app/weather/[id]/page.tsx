@@ -21,7 +21,7 @@ const WeatherDetailPage = () => {
                 </div>
             </section>
 
-            <HourlyWeather />
+            {/* <HourlyWeather /> */}
         </main>
     )
 }
