@@ -1,38 +1,40 @@
 import Image from 'next/image'
-import Link from 'next/link'
 
 const FavoriteList = () => {
     return (
-        <section>
-            <h3 className="text-sm font-semibold mb-2">즐겨찾기</h3>
+        <section className="backdrop-blur-md bg-white/15 rounded-2xl p-4">
+            <h3 className="text-sm opacity-80 mb-3">즐겨찾기</h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <ul className="flex flex-col divide-y divide-white/20">
                 {Array.from({ length: 3 }).map((_, i) => (
-                    <Link key={i} href="/weather/1">
-                        <div className="bg-white rounded-xl p-4 shadow hover:shadow-md transition cursor-pointer">
-                            <div className="flex justify-between items-center">
-                                <p className="font-medium">우리집</p>
-                                <button className="text-xs text-blue-500">✏️</button>
-                            </div>
-
-                            <div className="flex items-center gap-3 mt-3">
-                                <Image
-                                    src="/weather/cloudy.png"
-                                    alt="weather"
-                                    width={48}
-                                    height={48}
-                                />
+                    <li key={i}>
+                        <div className="block">
+                            <div className="flex items-center justify-between py-3 px-1 active:scale-[0.98] transition">
+                                {/* 왼쪽: 지역 */}
                                 <div>
-                                    <p className="text-2xl font-bold">21°</p>
-                                    <p className="text-xs text-gray-500">
-                                        18° / 25°
+                                    <p className="text-base font-medium">우리집</p>
+                                    <p className="text-xs opacity-70">
+                                        최고 25° · 최저 18°
                                     </p>
+                                </div>
+
+                                {/* 오른쪽: 날씨 */}
+                                <div className="flex items-center gap-3">
+                                    <Image
+                                        src="/weather/cloudy.png"
+                                        alt="weather"
+                                        width={36}
+                                        height={36}
+                                    />
+                                    <span className="text-2xl font-light">
+                                        21°
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                    </Link>
+                    </li>
                 ))}
-            </div>
+            </ul>
         </section>
     )
 }

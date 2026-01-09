@@ -5,7 +5,7 @@ import { CurrentWeatherType, HourlyWeatherType } from '@/shared/types/commonType
 
 type WeatherQueryResult = {
   currentWeather: CurrentWeatherType | null
-  hourlyWeather: HourlyWeatherType[]
+  hourlyWeather: HourlyWeatherType[] | []
 }
 
 export const useWeather = () => {

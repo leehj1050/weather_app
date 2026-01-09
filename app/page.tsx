@@ -8,6 +8,7 @@ import FavoriteList from "@/components/FavoriteList";
 import { useWeather } from "@/feature/weather/useWeather";
 import PendingUI from "@/components/common/pending";
 import ErrorUI from "@/components/common/errorUI";
+import { getSkyConfig } from "@/shared/utils/sky";
 
 
 export default function Home() {
@@ -17,20 +18,36 @@ export default function Home() {
   //api요청 에러발생시
   if (error) return <ErrorUI />
 
+  const skyBG = getSkyConfig(currentWeather?.sky ?? "default")
+
 
   return (
-    <div className="border border-red-700 border-3 h-[100vh] flex flex-col justify-center items-center">
-      <Header />
-      <main className="p-6 flex-1 max-w-[1000px]">
-        {
-          loading ? <PendingUI /> :
+    <div className={`min-h-screen  text-white flex justify-center ${skyBG.bgClass}`}>
+
+      <div className="w-full max-w-[1000px] flex flex-col">
+        {/* Header */}
+        <header className="px-6 pt-8 pb-4">
+          <Header />
+        </header>
+
+        {/* Main */}
+        <main className="flex-1 px-6 pb-8 flex flex-col gap-6">
+          {loading ? (
+            <PendingUI />
+          ) : (
             <>
-              {currentWeather ? <CurrentWeatherCard data={currentWeather} /> : <>날씨 정보를 불러올 수 없습니다.</>}
+              {currentWeather ? <CurrentWeatherCard data={currentWeather} /> : (
+                <p className="text-center opacity-80">
+                  날씨 정보를 불러올 수 없습니다.
+                </p>
+              )}
+
               <HourlyWeather data={hourlyWeather} />
               <FavoriteList />
             </>
-        }
-      </main>
+          )}
+        </main>
+      </div>
     </div>
   );
 }

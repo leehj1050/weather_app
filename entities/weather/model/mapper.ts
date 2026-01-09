@@ -1,12 +1,12 @@
 import getPastBaseTime from '@/shared/utils/baseTime'
-import { CurrentWeatherType, GetWeatherAPI } from '@/shared/types/commonType'
+import { CurrentWeatherType, GetWeatherAPI, HourlyWeatherType } from '@/shared/types/commonType'
 
 /**
  * 날씨API 요청후 데이터 가공 로직
  * @param items 
  * @returns 
  */
-export const buildWeatherData = (items: GetWeatherAPI[]): { currentWeather: CurrentWeatherType ,hourlyWeather:GetWeatherAPI[]} => {
+export const buildWeatherData = (items: GetWeatherAPI[]): { currentWeather: CurrentWeatherType , hourlyWeather:HourlyWeatherType[]} => {
   const targetCategories = ['TMN', 'TMX', 'TMP', 'SKY']
 
   const filtered = items.filter(
@@ -31,7 +31,25 @@ export const buildWeatherData = (items: GetWeatherAPI[]): { currentWeather: Curr
   const maxTemp = filtered.find((d) => d.category === 'TMX')
   const minTemp = filtered.find((d) => d.category === 'TMN')
 
-    return {
+  //시간당 기온 데이터 만들기
+  const filteredHourly = filtered.filter((d) => d.category === 'TMP') 
+  const filteredHourSky = filtered.filter((d) => d.category === 'SKY') 
+  //최종가공
+  const hourlyWeather = filteredHourly.map((tmpItem) => {
+    const skyItem = filteredHourSky.find(
+    //시간이 같은 데이터끼리 뽑아내기
+    (sky) => sky.fcstTime === tmpItem.fcstTime
+  )
+
+  return {
+    time: tmpItem.fcstTime,
+    tmp: tmpItem.fcstValue,
+    sky: skyItem?.fcstValue 
+  }
+}) as HourlyWeatherType[]
+  
+
+return {
       // 현재시간에 해당하는 기온데이터 
     currentWeather: {
       date: currentTmp?.fcstDate ?? '',
@@ -41,6 +59,8 @@ export const buildWeatherData = (items: GetWeatherAPI[]): { currentWeather: Curr
       tmx: maxTemp?.fcstValue ?? '',
       tmn: minTemp?.fcstValue ?? '',
     },
-    hourlyWeather: filtered.filter((d) => d.category === 'TMP') , // 시간당기온
+
+      // 시간당기온
+    hourlyWeather: hourlyWeather || [], 
   }
 }

@@ -21,4 +21,8 @@ export interface CurrentWeatherType{
 }
 
 // 시간당 기온 데이터 타입
-export interface HourlyWeatherType extends GetWeatherAPI{}
+export interface HourlyWeatherType {
+    time: string;
+    tmp: string;
+    sky: "1" | "3" | "4" | "default" | string
+}

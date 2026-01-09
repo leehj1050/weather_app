@@ -7,24 +7,31 @@ const CurrentWeatherCard = ({ data }: { data: CurrentWeatherType }) => {
     const skyConfig = getSkyConfig(data.sky)
 
     return (
-        <section className={`rounded-xl p-6 shadow ${skyConfig.bgClass}`}>
-            <h2 className="text-lg font-semibold mb-2">{`현재 날씨 (${skyConfig.label})`}</h2>
+        <section className="flex flex-col items-center text-center">
+            {/* 상태 라벨 */}
+            <p className="text-lg font-semibold opacity-80 mb-1">
+                {skyConfig.label}
+            </p>
 
-            <div className="flex items-center gap-4">
+            {/* 메인 온도 */}
+            <div className="flex items-center gap-3">
                 <Image
                     src={skyConfig.icon}
                     alt="weather_icon"
-                    width={80}
-                    height={80}
+                    width={72}
+                    height={72}
+                    priority
                 />
 
-                <div>
-                    <p className="text-4xl font-bold">{data.tmp}°</p>
-                    <p className="text-sm opacity-90">
-                        최저 {data.tmn}° / 최고 {data.tmx}°
-                    </p>
-                </div>
+                <span className="text-[88px] font-thin leading-none">
+                    {data.tmp}°
+                </span>
             </div>
+
+            {/* 최저 / 최고 */}
+            <p className="text-lg font-semibold opacity-80 mt-2">
+                최고: {data.tmx}°&nbsp;&nbsp;&nbsp;최저: {data.tmn}°
+            </p>
         </section>
     )
 }
