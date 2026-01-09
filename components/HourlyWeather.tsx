@@ -1,6 +1,7 @@
+import { HourlyWeatherType } from "@/shared/types/commonType"
 import formatForecastHour from "@/shared/utils/formatTime"
 
-const HourlyWeather = ({ data }: any) => {
+const HourlyWeather = ({ data }: { data: HourlyWeatherType[] }) => {
     return (
         <section>
             <h3 className="text-sm font-semibold mb-2">시간대별 기온</h3>

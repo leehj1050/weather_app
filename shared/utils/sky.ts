@@ -1,4 +1,4 @@
-export type SkyCode = '1' | '3' | '4' | "default"
+export type SkyCode = "1" | "3" | "4" | "default" | string
 
 type SkyConfig = {
   label: string

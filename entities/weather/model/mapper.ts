@@ -1,5 +1,5 @@
 import getPastBaseTime from '@/shared/utils/baseTime'
-import { CurrentWeatherType, GetWeatherAPI } from './type'
+import { CurrentWeatherType, GetWeatherAPI } from '@/shared/types/commonType'
 
 /**
  * 날씨API 요청후 데이터 가공 로직
@@ -36,7 +36,7 @@ export const buildWeatherData = (items: GetWeatherAPI[]): { currentWeather: Curr
     currentWeather: {
       date: currentTmp?.fcstDate ?? '',
       time: currentTmp?.fcstTime ?? '',
-      sky: currentSky?.fcstValue ?? '1',
+      sky: currentSky?.fcstValue ?? "default",
       tmp: currentTmp?.fcstValue ?? '',
       tmx: maxTemp?.fcstValue ?? '',
       tmn: minTemp?.fcstValue ?? '',

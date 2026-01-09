@@ -6,14 +6,16 @@ import CurrentWeatherCard from "@/components/CurrentWeatherCard";
 import HourlyWeather from "@/components/HourlyWeather";
 import FavoriteList from "@/components/FavoriteList";
 import { useWeather } from "@/feature/weather/useWeather";
-import PendingUI from "@/components/pending";
-
+import PendingUI from "@/components/common/pending";
+import ErrorUI from "@/components/common/errorUI";
 
 
 export default function Home() {
 
-  const { currentWeather, hourlyWeather, loading } = useWeather()
+  const { currentWeather, hourlyWeather, loading, error } = useWeather()
 
+  //api요청 에러발생시
+  if (error) return <ErrorUI />
 
 
   return (
@@ -23,7 +25,7 @@ export default function Home() {
         {
           loading ? <PendingUI /> :
             <>
-              <CurrentWeatherCard data={currentWeather} />
+              {currentWeather ? <CurrentWeatherCard data={currentWeather} /> : <>날씨 정보를 불러올 수 없습니다.</>}
               <HourlyWeather data={hourlyWeather} />
               <FavoriteList />
             </>

@@ -1,42 +1,37 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import formatBaseDate from '@/shared/utils/formatDate'
+import { useQuery } from '@tanstack/react-query'
+import { fetchWeather } from '@/entities/weather/api/weatherAPI'
 import { buildWeatherData } from '@/entities/weather/model/mapper'
-import { GetWeatherAPI } from '@/entities/weather/model/type'
+import { CurrentWeatherType, HourlyWeatherType } from '@/shared/types/commonType'
+
+type WeatherQueryResult = {
+  currentWeather: CurrentWeatherType | null
+  hourlyWeather: HourlyWeatherType[]
+}
 
 export const useWeather = () => {
-  const [currentWeather, setCurrentWeather] = useState({})
-  const [hourlyWeather, setHourlyWeather] = useState<GetWeatherAPI[]>([])
-  const [loading, setLoading] = useState(true)
+  const { data, isLoading, isError } = useQuery<WeatherQueryResult>({
+    queryKey: ['weather'],
+    queryFn: async () => {
+      const items = await fetchWeather()
+      const { currentWeather, hourlyWeather } = buildWeatherData(items)
 
-  useEffect(() => {
-    const fetchWeather = async () => {
-      try {
-        const baseDate = formatBaseDate()
+      // 하나라도 빈 문자열이면 null 처리
+      const hasEmptyString = Object.values(currentWeather).some(
+        (value) => value === ''
+      )
 
-        const res = await axios.post('/api/weather', {
-          baseDate,
-          locationX: 62,
-          locationY: 125,
-        })
-
-        const items = res.data.response.body.items.item
-
-        const { currentWeather, hourlyWeather } = buildWeatherData(items)
-
-        setCurrentWeather(currentWeather)
-        setHourlyWeather(hourlyWeather)
-      } finally {
-        setLoading(false)
+      return {
+        currentWeather: hasEmptyString ? null : currentWeather,
+        hourlyWeather,
       }
-    }
-
-    fetchWeather()
-  }, [])
+    },
+    staleTime: 1000 * 60 * 5, // 5분 캐시
+  })
 
   return {
-    currentWeather,
-    hourlyWeather,
-    loading,
+    currentWeather: data?.currentWeather ?? null,
+    hourlyWeather: data?.hourlyWeather ?? [],
+    loading: isLoading,
+    error: isError,
   }
 }

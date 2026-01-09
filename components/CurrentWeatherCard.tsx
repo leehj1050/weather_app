@@ -1,7 +1,9 @@
+import { CurrentWeatherType } from '@/shared/types/commonType'
 import { getSkyConfig } from '@/shared/utils/sky'
 import Image from 'next/image'
 
-const CurrentWeatherCard = ({ data }: any) => {
+
+const CurrentWeatherCard = ({ data }: { data: CurrentWeatherType }) => {
     const skyConfig = getSkyConfig(data.sky)
 
     return (
