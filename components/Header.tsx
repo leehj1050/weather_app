@@ -18,7 +18,7 @@ useMemo로 불필요한 재연산 방지
 
 const Header = () => {
     const { keyword, setKeyword, clearKeyword } = useSearchLocationStore()
-    const { setLocationXY } = useLocationXY()
+    const { setLocationXY, city_label, setLabel } = useLocationXY()
 
     useEffect(() => {
         clearKeyword()
@@ -39,12 +39,16 @@ const Header = () => {
 
     return (
         <div className="max-w-5xl mx-auto px-4 py-3 flex flex-col gap-2">
+            { /** 현재위치 */}
+            <p className="text-sm font-bold">
+                📍 현재위치 : {city_label}
+            </p>
 
             {/* 검색 */}
             <div className="relative">
                 <input
                     type="text"
-                    placeholder="지역 검색 (예: 서울특별시, 종로구, 청운동)"
+                    placeholder="지역 검색 (예: 서울특별시, 종로구, 삼청동)"
                     className="w-full rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-white backdrop-blur-md bg-white/15"
                     value={keyword}
                     onChange={(e) => setKeyword(e.target.value)}
@@ -72,6 +76,7 @@ const Header = () => {
                                             onClick={() => {
                                                 setKeyword(label)
                                                 setLocationXY(nx, ny)
+                                                setLabel(label)
                                             }}
                                         >
                                             {label}

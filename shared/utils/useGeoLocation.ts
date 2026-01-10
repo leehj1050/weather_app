@@ -14,11 +14,10 @@ export const useGeoLocation = () => {
         latitude: 37.579293849225756, // 기본값
         longitude: 126.97798076343491, // 기본값
     });
-    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [errorMsg, setErrorMsg] = useState<string>('');
    
     //store
-    const { setLocationXY } = useLocationXY()
+    const { setLocationXY, setLabel } = useLocationXY()
 
    
 
@@ -37,7 +36,6 @@ export const useGeoLocation = () => {
                 setErrorMsg('알 수 없는 오류가 발생했습니다.');
                 break;
         }
-        setIsLoading(false);
     }, []);
 
 useEffect(() => {
@@ -97,11 +95,18 @@ useEffect(() => {
     };
 
     const nearest = findNearestLocation();
+    const label = [nearest.city , nearest.sigungu, nearest.dong].join(" ")
     // json데이터에서 해당위치에서 필요한 격자x , 격자y 추출후 store저장
-    setLocationXY(nearest.nx,nearest.ny)
-
+    setLocationXY(nearest.nx, nearest.ny)
+    setLabel(label)
+    
 
 }, [location]);
-
+    
+   
+    return {
+        errorMsg,
+        setErrorMsg
+    }
   
 };

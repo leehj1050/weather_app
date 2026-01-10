@@ -8,7 +8,6 @@ import { useWeather } from "@/feature/weather/useWeather";
 import PendingUI from "@/components/common/pending";
 import ErrorUI from "@/components/common/errorUI";
 import { getSkyConfig } from "@/shared/utils/sky";
-import { useSearchLocationStore } from "@/feature/search/store";
 import { useGeoLocation } from "@/shared/utils/useGeoLocation";
 import { useLocationXY } from "@/feature/location/store";
 import { useEffect } from "react";
@@ -16,7 +15,7 @@ import { useEffect } from "react";
 
 export default function Home() {
   //사용자 위치확인 로직 실행
-  useGeoLocation()
+  const { errorMsg, setErrorMsg } = useGeoLocation()
 
   const { locationXY } = useLocationXY()
   const { currentWeather, hourlyWeather, loading, error } = useWeather(locationXY)
@@ -25,6 +24,13 @@ export default function Home() {
 
   //api요청 에러발생시
   if (error) return <ErrorUI />
+
+  useEffect(() => {
+    if (!errorMsg) return;
+
+    alert(errorMsg);
+    setErrorMsg(''); // ✅ alert 확인 후 상태 제거
+  }, [errorMsg]);
 
   return (
     <div className={`min-h-screen  text-white flex justify-center ${skyBG.bgClass}`}>
