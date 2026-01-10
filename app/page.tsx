@@ -1,6 +1,5 @@
 'use client'
 
-import formaLocation from "@/shared/model/grid/location_data.json"
 import Header from "@/components/Header";
 import CurrentWeatherCard from "@/components/CurrentWeatherCard";
 import HourlyWeather from "@/components/HourlyWeather";
@@ -9,17 +8,23 @@ import { useWeather } from "@/feature/weather/useWeather";
 import PendingUI from "@/components/common/pending";
 import ErrorUI from "@/components/common/errorUI";
 import { getSkyConfig } from "@/shared/utils/sky";
+import { useSearchLocationStore } from "@/feature/search/store";
+import { useGeoLocation } from "@/shared/utils/useGeoLocation";
+import { useLocationXY } from "@/feature/location/store";
+import { useEffect } from "react";
 
 
 export default function Home() {
+  //사용자 위치확인 로직 실행
+  useGeoLocation()
 
-  const { currentWeather, hourlyWeather, loading, error } = useWeather()
+  const { locationXY } = useLocationXY()
+  const { currentWeather, hourlyWeather, loading, error } = useWeather(locationXY)
+  const skyBG = getSkyConfig(currentWeather?.sky ?? "default")
+
 
   //api요청 에러발생시
   if (error) return <ErrorUI />
-
-  const skyBG = getSkyConfig(currentWeather?.sky ?? "default")
-
 
   return (
     <div className={`min-h-screen  text-white flex justify-center ${skyBG.bgClass}`}>

@@ -1,9 +1,11 @@
 import { HourlyWeatherType } from "@/shared/types/commonType"
 import formatForecastHour from "@/shared/utils/formatTime"
+import { useRouter } from "next/navigation"
 import { useRef } from "react"
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md"
 
 const HourlyWeather = ({ data }: { data: HourlyWeatherType[] }) => {
+    const router = useRouter()
     const scrollRef = useRef<HTMLDivElement | null>(null)
 
     const scrollLeft = () => {
@@ -20,7 +22,7 @@ const HourlyWeather = ({ data }: { data: HourlyWeatherType[] }) => {
         })
     }
     return (
-        <section className="backdrop-blur-md bg-white/15 rounded-2xl p-4 relative group">
+        <section className="backdrop-blur-md bg-white/15 rounded-2xl p-4 relative group transition-transform duration-150 ease-out active:scale-[0.98]" onClick={() => router.push("/weather/1")}>
             <h3 className="text-sm opacity-80 mb-3 font-bold">
                 시간대별 기온
             </h3>

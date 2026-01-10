@@ -8,11 +8,11 @@ type WeatherQueryResult = {
   hourlyWeather: HourlyWeatherType[] | []
 }
 
-export const useWeather = () => {
+export const useWeather = (location: { nx: number, ny: number }, enabled?:boolean) => {
   const { data, isLoading, isError } = useQuery<WeatherQueryResult>({
-    queryKey: ['weather'],
+    queryKey: ['weather',location.nx, location.ny],
     queryFn: async () => {
-      const items = await fetchWeather()
+      const items = await fetchWeather(location.nx, location.ny)
       const { currentWeather, hourlyWeather } = buildWeatherData(items)
 
       // 하나라도 빈 문자열이면 null 처리
@@ -26,6 +26,7 @@ export const useWeather = () => {
       }
     },
     staleTime: 1000 * 60 * 5, // 5분 캐시
+    // enabled
   })
 
   return {

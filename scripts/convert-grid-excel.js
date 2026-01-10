@@ -4,12 +4,12 @@ import path from 'path'
 
 const excelPath = path.join(
   process.cwd(),
-  'shared/assets/excel/location_format.xlsx'
+  'shared/assets/excel/location-data.xlsx'
 )
 
 const outputPath = path.join(
   process.cwd(),
-  'shared/model/grid/location_data.json'
+  'shared/model/grid/location-data.json'
 )
 
 const workbook = XLSX.readFile(excelPath)
@@ -20,11 +20,13 @@ const rawData = XLSX.utils.sheet_to_json(sheet)
 
 // 필요 없는 컬럼 제거 & 정규화
 const data = rawData.map((row) => ({
-  city: row['1단계'],
-  sigungu: row['2단계'],
-  dong: row['3단계'],
-  nx: Number(row['격자 X']),
-  ny: Number(row['격자 Y']),
+  city: row['City'],
+  sigungu: row['Sigungu'],
+  dong: row['Dong'],
+  nx: Number(row['X']),
+  ny: Number(row['Y']),
+  latitude: Number(row['Latitude']),
+  longitude: Number(row['Longitude']),
 }))
 
 fs.writeFileSync(outputPath, JSON.stringify(data, null, 2))

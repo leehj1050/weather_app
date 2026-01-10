@@ -20,12 +20,12 @@ const FavoriteList = () => {
 
                                 {/* 오른쪽: 날씨 */}
                                 <div className="flex items-center gap-3">
-                                    <Image
+                                    {/* <Image
                                         src="/weather/cloudy.png"
                                         alt="weather"
                                         width={36}
                                         height={36}
-                                    />
+                                    /> */}
                                     <span className="text-2xl font-light">
                                         21°
                                     </span>

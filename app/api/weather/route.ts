@@ -9,7 +9,7 @@ export const POST = async (req: Request) => {
     const { baseDate, locationX, locationY } = await req.json()
     
     const { data } = await axios.get(
-      `${API_URL}/getVilageFcst?pageNo=1&numOfRows=1000&dataType=JSON&base_date=${baseDate}&base_time=0200&nx=62&ny=125&authKey=${API_KEY}`,
+      `${API_URL}/getVilageFcst?pageNo=1&numOfRows=1000&dataType=JSON&base_date=${baseDate}&base_time=0200&nx=${locationX}&ny=${locationY}&authKey=${API_KEY}`,
     )
     return NextResponse.json(data)
   } catch (error) {

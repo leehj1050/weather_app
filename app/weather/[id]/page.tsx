@@ -11,7 +11,7 @@ const WeatherDetailPage = () => {
 
             <section className="bg-white rounded-xl p-6 shadow">
                 <div className="flex items-center gap-4">
-                    <Image src="/weather/sunny.png" alt="weather" width={80} height={80} />
+                    {/* <Image src="/weather/sunny.png" alt="weather" width={80} height={80} /> */}
                     <div>
                         <p className="text-4xl font-bold">24°</p>
                         <p className="text-sm text-gray-500">
