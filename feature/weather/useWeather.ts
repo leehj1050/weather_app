@@ -8,7 +8,7 @@ type WeatherQueryResult = {
   hourlyWeather: HourlyWeatherType[] | []
 }
 
-export const useWeather = (location: { nx: number, ny: number }, enabled?:boolean) => {
+export const useWeather = (location: { nx: number, ny: number }) => {
   const { data, isLoading, isError } = useQuery<WeatherQueryResult>({
     queryKey: ['weather',location.nx, location.ny],
     queryFn: async () => {
@@ -26,7 +26,6 @@ export const useWeather = (location: { nx: number, ny: number }, enabled?:boolea
       }
     },
     staleTime: 1000 * 60 * 5, // 5분 캐시
-    // enabled
   })
 
   return {
