@@ -21,7 +21,6 @@ export default function Home() {
   const { currentWeather, hourlyWeather, loading, error } = useWeather(locationXY)
   const skyBG = getSkyConfig(currentWeather?.sky ?? "default")
 
-
   //api요청 에러발생시
   if (error) return <ErrorUI />
 
@@ -38,7 +37,7 @@ export default function Home() {
       <div className="w-full max-w-[1000px] flex flex-col">
         {/* Header */}
         <header className="px-6 pt-8 pb-4">
-          <Header />
+          <Header currentWeather={currentWeather ?? null} />
         </header>
 
         {/* Main */}

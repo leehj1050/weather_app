@@ -13,6 +13,9 @@ const BASE_TIMES = [2, 5, 8, 11, 14, 17, 20, 23]
 export const getPastBaseTime = (now: Date = new Date()): string => {
   const currentHour = now.getHours()
 
+  // // ✅ 00:00 ~ 02:59 → 03:00 고정
+  if (currentHour < 5) return '0300'
+
   // 현재 시각 이하인 base_time만 필터
   const candidates = BASE_TIMES.filter(
     (hour) => hour <= currentHour

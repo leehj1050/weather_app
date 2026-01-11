@@ -1,5 +1,7 @@
 import getPastBaseTime from '@/shared/utils/baseTime'
 import { CurrentWeatherType, GetWeatherAPI, HourlyWeatherType } from '@/shared/types/commonType'
+import { v4 as uuidv4 } from 'uuid';
+
 
 /**
  * 날씨API 요청후 데이터 가공 로직
@@ -51,7 +53,8 @@ export const buildWeatherData = (items: GetWeatherAPI[]): { currentWeather: Curr
 
 return {
       // 현재시간에 해당하는 기온데이터 
-    currentWeather: {
+  currentWeather: {
+      id: uuidv4(),
       date: currentTmp?.fcstDate ?? '',
       time: currentTmp?.fcstTime ?? '',
       sky: currentSky?.fcstValue ?? "default",

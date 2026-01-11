@@ -4,6 +4,10 @@ import { useSearchLocationStore } from "@/feature/search/store"
 import { useEffect, useMemo } from "react"
 import LOCATION_DATA from '@/shared/model/grid/location-data.json'
 import { useLocationXY } from "@/feature/location/store"
+import { FaRegPlusSquare } from "react-icons/fa"
+import { IoLocationOutline } from "react-icons/io5"
+import { useFavoriteList } from "@/feature/favorite/store"
+import { CurrentWeatherType } from "@/shared/types/commonType"
 
 
 /**
@@ -16,9 +20,12 @@ city | sigungu | dong 중 하나라도 포함되면 매칭
 useMemo로 불필요한 재연산 방지
 */
 
-const Header = () => {
+const Header = ({ currentWeather }: { currentWeather: CurrentWeatherType | null }) => {
+
     const { keyword, setKeyword, clearKeyword } = useSearchLocationStore()
     const { setLocationXY, city_label, setLabel } = useLocationXY()
+    //store
+    const { favoriteList, addFavorite } = useFavoriteList()
 
     useEffect(() => {
         clearKeyword()
@@ -37,12 +44,41 @@ const Header = () => {
             .slice(0, 10) // 자동완성 최대 10개 (ux + 성능 업)
     }, [keyword])
 
+    // 즐겨찾기 추가 로직
+    const handleFavoriteBTN = () => {
+        if (!currentWeather || hasFavorite) return // 현재날씨데이터가 없을경우 & 현재위치의 날씨정보가 favorite에 저장이 되었다면 클릭방지
+
+        const item = {
+            id: currentWeather.id,
+            locationName: city_label,
+            iconSrc: `/weatherIcon/${currentWeather.sky}.png`,
+            tmp: currentWeather.tmp,
+            tmx: currentWeather.tmx,
+            tmn: currentWeather.tmn
+        }
+        addFavorite(item)
+    }
+
+    //즐겨찾기 추가됐는지 검사 로직
+    const hasFavorite = favoriteList.some((item) =>
+        item.id === currentWeather?.id
+    );
+
+
     return (
         <div className="max-w-5xl mx-auto px-4 py-3 flex flex-col gap-2">
-            { /** 현재위치 */}
-            <p className="text-sm font-bold">
-                📍 현재위치 : {city_label}
-            </p>
+            <div className="font-bold flex justify-between">
+                { /** 현재위치 */}
+                <div className="flex gap-1 items-center">
+                    <IoLocationOutline className="text-xl" />
+                    <p className="flex items-center text-sm">현재위치 : {city_label}</p>
+                </div>
+                { /** 즐겨찾기 */}
+                <button name="favorite" className="flex gap-2 backdrop-blur-md bg-white/15 p-2 rounded-2xl hover:bg-white/30 active:scale-[0.98]" onClick={handleFavoriteBTN}>
+                    {!hasFavorite ? <FaRegPlusSquare className="text-lg" /> : <></>}
+                    <p className="text-sm">{!hasFavorite ? "즐겨찾기 추가" : "즐겨찾기 추가됨"}</p>
+                </button>
+            </div>
 
             {/* 검색 */}
             <div className="relative">

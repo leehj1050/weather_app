@@ -12,6 +12,7 @@ export interface GetWeatherAPI {
 
 // 가공된 currentWeather 데이터 타입
 export interface CurrentWeatherType{
+    id: string;
     date: string
     time: string
     sky: "1" | "3" | "4" | "default" | string

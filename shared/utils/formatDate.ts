@@ -9,7 +9,8 @@ const formatBaseDate = () => {
     const date = new Date(TODAY_DATE)
 
     // 2. YYYYMMDD 포맷으로 변환
-    return date.toISOString().slice(0, 10).replace(/-/g, '')
+    return date.toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' })
+    .replace(/-/g, '')
 }
 
 export default formatBaseDate

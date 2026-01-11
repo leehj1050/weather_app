@@ -22,36 +22,30 @@ const HourlyWeather = ({ data }: { data: HourlyWeatherType[] }) => {
         })
     }
     return (
-        <section className="relative group">
-            {/* ✅ 실제 카드 클릭 영역 */}
-            <div
-                onClick={() => router.push("/weather/1")}
-                className="backdrop-blur-md bg-white/15 rounded-2xl p-4
-               transition-transform duration-150 ease-out
-               active:scale-[0.98]"
-            >
-                <h3 className="text-sm opacity-80 mb-3 font-bold">
-                    시간대별 기온
-                </h3>
+        <section className="relative group backdrop-blur-md bg-white/15 rounded-2xl p-4
+               transition-transform duration-150 ease-out">
 
-                <div ref={scrollRef} className="flex gap-4 overflow-x-auto no-scrollbar">
-                    {data.map((hourlyData, key) => (
-                        <div key={key} className="min-w-[56px] flex flex-col items-center text-center">
-                            <span className="text-xs opacity-70">
-                                {formatForecastHour(hourlyData.time)}
-                            </span>
+            <h3 className="text-sm opacity-80 mb-3 font-bold">
+                시간대별 기온
+            </h3>
 
-                            {/* 아이콘 자리 */}
-                            <span className="my-1 text-lg">
-                                {hourlyData.sky === "1" ? "☀️" : hourlyData.sky === "3" ? "🌤️" : "☁️"}
-                            </span>
+            <div ref={scrollRef} className="flex gap-4 overflow-x-auto no-scrollbar">
+                {data.map((hourlyData, key) => (
+                    <div key={key} className="min-w-[56px] flex flex-col items-center text-center">
+                        <span className="text-xs opacity-70">
+                            {formatForecastHour(hourlyData.time)}
+                        </span>
 
-                            <span className="text-sm">
-                                {hourlyData.tmp}°
-                            </span>
-                        </div>
-                    ))}
-                </div>
+                        {/* 아이콘 자리 */}
+                        <span className="my-1 text-lg">
+                            {hourlyData.sky === "1" ? "☀️" : hourlyData.sky === "3" ? "🌤️" : "☁️"}
+                        </span>
+
+                        <span className="text-sm">
+                            {hourlyData.tmp}°
+                        </span>
+                    </div>
+                ))}
             </div>
 
 
