@@ -26,11 +26,15 @@ const FavoriteList = () => {
             setEditName(favoriteItem.locationName);
             setIsClickEdit(true);
         } else {
-            // ✅ 편집 완료  store name 업데이트
-            updateFavoriteName(favoriteItem.id, editName)
-            setIsClickEdit(false);
-            setEditingId(null)
+            updateFavorite(favoriteItem.id)
         }
+    }
+
+    //편집완료
+    const updateFavorite = (id: string) => {
+        updateFavoriteName(id, editName)
+        setIsClickEdit(false);
+        setEditingId(null)
     }
 
     // name 수정
@@ -58,7 +62,12 @@ const FavoriteList = () => {
                                 <div className='group truncate'>
                                     <div className='flex gap-1'>
                                         {editingId !== item.id ? <p className="text-base font-medium truncate">{item.locationName}</p>
-                                            : <input ref={inputRef} value={editName} onChange={handleEditChange} onClick={(e) => { e.stopPropagation(); e.preventDefault() }} />
+                                            : <input ref={inputRef} value={editName} onChange={handleEditChange} onClick={(e) => { e.stopPropagation(); e.preventDefault() }}
+                                                onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                                                    if (e.key === 'Enter') {
+                                                        updateFavorite(item.id)
+                                                    }
+                                                }} />
                                         }
                                         <button className='opacity-0 group-hover:opacity-100' id={item.id}
                                             onClick={(e) => handleEditButton(e, item)}>
