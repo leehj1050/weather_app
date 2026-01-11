@@ -74,7 +74,7 @@ const Header = ({ currentWeather }: { currentWeather: CurrentWeatherType | null 
                 { /** 현재위치 */}
                 <div className="flex gap-1 items-center truncate">
                     <IoLocationOutline className="text-xl" />
-                    <p className="flex items-center text-sm truncate">현재위치 :<p className="truncate">{city_label}</p></p>
+                    <p className="flex items-center text-sm truncate">현재위치 :<span className="truncate">{city_label}</span></p>
                 </div>
                 { /** 즐겨찾기 */}
                 <button name="favorite" className="flex gap-2 backdrop-blur-md bg-white/15 p-2 rounded-2xl hover:bg-white/30 active:scale-[0.98]" onClick={handleFavoriteBTN}>
