@@ -73,6 +73,23 @@ enabled: !!location
 - UI 컴포넌트는 표현 역할에만 집중하도록 설계
 
 
+## 🛠 사용한 기술 스택
+
+### Frontend
+- **Next.js (App Router)**
+- **React**
+- **TypeScript**
+- **Tailwind CSS**
+
+### State & Data Management
+- **Zustand** – 전역 상태 관리
+- **@tanstack/react-query** – 서버 상태 관리 및 캐싱
+
+### API
+- **기상청 공공데이터 포털 단기예보 API**
+
+
+
 
 
 
