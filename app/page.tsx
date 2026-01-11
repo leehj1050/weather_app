@@ -31,6 +31,7 @@ export default function Home() {
     setErrorMsg(''); // ✅ alert 확인 후 상태 제거
   }, [errorMsg]);
 
+
   return (
     <div className={`min-h-screen  text-white flex justify-center ${skyBG.bgClass}`}>
 

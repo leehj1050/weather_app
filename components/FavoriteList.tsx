@@ -45,7 +45,6 @@ const FavoriteList = () => {
         }
     }, [isClickEdit]);
 
-
     return (
         <section className="backdrop-blur-md bg-white/15 rounded-2xl p-4">
             <h3 className="text-sm opacity-80 mb-3 font-bold">즐겨찾기</h3>
@@ -54,7 +53,7 @@ const FavoriteList = () => {
                 {
                     favoriteList.length > 0 ? favoriteList.map((item, key) => (
                         <li key={key}>
-                            <Link href={"/weather/1"} className="flex items-center justify-between py-3 px-1 hover:bg-white/10">
+                            <Link href={`/weather/${item.id}`} className="flex items-center justify-between py-3 px-1 hover:bg-white/10">
                                 {/* 왼쪽: 지역 */}
                                 <div className='group'>
                                     <div className='flex gap-1'>

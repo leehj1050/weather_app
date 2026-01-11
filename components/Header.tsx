@@ -54,7 +54,10 @@ const Header = ({ currentWeather }: { currentWeather: CurrentWeatherType | null 
             iconSrc: `/weatherIcon/${currentWeather.sky}.png`,
             tmp: currentWeather.tmp,
             tmx: currentWeather.tmx,
-            tmn: currentWeather.tmn
+            tmn: currentWeather.tmn,
+            nx: currentWeather.nx,
+            ny: currentWeather.ny,
+            // sky: currentWeather.sky
         }
         addFavorite(item)
     }

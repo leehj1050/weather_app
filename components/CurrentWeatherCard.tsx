@@ -30,7 +30,7 @@ const CurrentWeatherCard = ({ data }: { data: CurrentWeatherType }) => {
 
             {/* 최저 / 최고 */}
             <p className="text-lg font-semibold opacity-80 mt-2">
-                최고: {data.tmx}°&nbsp;&nbsp;&nbsp;최저: {data.tmn}°
+                최저: {data.tmn}&nbsp;&nbsp;&nbsp;°최고: {data.tmx}°
             </p>
         </section>
     )

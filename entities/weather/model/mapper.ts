@@ -49,7 +49,6 @@ export const buildWeatherData = (items: GetWeatherAPI[]): { currentWeather: Curr
     sky: skyItem?.fcstValue 
   }
 }) as HourlyWeatherType[]
-  
 
 return {
       // 현재시간에 해당하는 기온데이터 
@@ -61,6 +60,8 @@ return {
       tmp: currentTmp?.fcstValue ?? '',
       tmx: maxTemp?.fcstValue ?? '',
       tmn: minTemp?.fcstValue ?? '',
+      nx: filtered[0].nx ?? "",
+      ny:filtered[0].ny ?? ""
     },
 
       // 시간당기온

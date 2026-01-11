@@ -19,6 +19,8 @@ export interface CurrentWeatherType{
     tmp: string
     tmx: string
     tmn: string
+    nx: number
+    ny: number
 }
 
 // 시간당 기온 데이터 타입
