@@ -14,7 +14,9 @@ git clone https://github.com/your-repo/weather-app.git
 cd weather-app
 ```
 ### 2. 패키지 설치
+```bash
 npm install
+```
 
 ### 3. 환경 변수 설정
 ```bash
@@ -26,6 +28,28 @@ NEXT_PUBLIC_WEATHER_API_KEY=YOUR_API_KEY
 ```bash
 npm run dev
 ```
+
+## ✨ 구현한 기능
+
+### 1️⃣ 즐겨찾기 지역 관리
+- 지역(nx, ny 좌표 기준)을 즐겨찾기로 등록
+- 즐겨찾기 이름 수정 기능 제공
+- 수정 가능한 이름이 아닌 **고유 id 기반으로 즐겨찾기 여부 판단**
+
+### 2️⃣ 날씨 디테일 페이지
+- 즐겨찾기 목록에서 선택한 지역의 상세 날씨 페이지 제공
+- 현재 기온, 최저/최고 기온 표시
+- 시간대별 날씨 예보(Hourly Forecast) 제공
+
+### 3️⃣ 기상청 공공 API 연동
+- 기상청 단기예보 API를 활용하여 격자(nx, ny) 기준 날씨 데이터 조회
+- API 응답 데이터를 UI에 필요한 형태로 가공하여 사용
+
+### 4️⃣ 로딩 / 에러 처리
+- 데이터 요청 중 로딩 UI 표시
+- API 호출 실패 시 에러 UI 제공
+
+
 
 
 
