@@ -12,3 +12,9 @@ React Query와 Zustand를 활용해 상태 관리와 데이터 요청을 효율�
 ```bash
 git clone https://github.com/your-repo/weather-app.git
 cd weather-app
+npm install
+# .env.local
+NEXT_PUBLIC_WEATHER_API_KEY=YOUR_API_KEY
+npm run dev
+
+
