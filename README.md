@@ -17,11 +17,16 @@ cd weather-app
 npm install
 
 ### 3. 환경 변수 설정
+```bash
 # .env.local
 NEXT_PUBLIC_WEATHER_API_KEY=YOUR_API_KEY
+```
 
 ### 4. 개발 서버 실행
+```bash
 npm run dev
+```
+
 
 
 
