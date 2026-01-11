@@ -53,11 +53,11 @@ const FavoriteList = () => {
                 {
                     favoriteList.length > 0 ? favoriteList.map((item, key) => (
                         <li key={key}>
-                            <Link href={`/weather/${item.id}`} className="flex items-center justify-between py-3 px-1 hover:bg-white/10">
+                            <Link href={`/weather/${item.id}`} className="flex items-center justify-between py-3 px-1 hover:bg-white/10 hover:rounded">
                                 {/* 왼쪽: 지역 */}
-                                <div className='group'>
+                                <div className='group truncate'>
                                     <div className='flex gap-1'>
-                                        {editingId !== item.id ? <p className="text-base font-medium ">{item.locationName}</p>
+                                        {editingId !== item.id ? <p className="text-base font-medium truncate">{item.locationName}</p>
                                             : <input ref={inputRef} value={editName} onChange={handleEditChange} onClick={(e) => { e.stopPropagation(); e.preventDefault() }} />
                                         }
                                         <button className='opacity-0 group-hover:opacity-100' id={item.id}

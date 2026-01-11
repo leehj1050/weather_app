@@ -4,7 +4,7 @@ import { useSearchLocationStore } from "@/feature/search/store"
 import { useEffect, useMemo } from "react"
 import LOCATION_DATA from '@/shared/model/grid/location-data.json'
 import { useLocationXY } from "@/feature/location/store"
-import { FaRegPlusSquare } from "react-icons/fa"
+import { FaRegCheckCircle, FaRegPlusSquare } from "react-icons/fa"
 import { IoLocationOutline } from "react-icons/io5"
 import { useFavoriteList } from "@/feature/favorite/store"
 import { CurrentWeatherType } from "@/shared/types/commonType"
@@ -72,14 +72,14 @@ const Header = ({ currentWeather }: { currentWeather: CurrentWeatherType | null 
         <div className="max-w-5xl mx-auto px-4 py-3 flex flex-col gap-2">
             <div className="font-bold flex justify-between">
                 { /** 현재위치 */}
-                <div className="flex gap-1 items-center">
+                <div className="flex gap-1 items-center truncate">
                     <IoLocationOutline className="text-xl" />
-                    <p className="flex items-center text-sm">현재위치 : {city_label}</p>
+                    <p className="flex items-center text-sm truncate">현재위치 :<p className="truncate">{city_label}</p></p>
                 </div>
                 { /** 즐겨찾기 */}
                 <button name="favorite" className="flex gap-2 backdrop-blur-md bg-white/15 p-2 rounded-2xl hover:bg-white/30 active:scale-[0.98]" onClick={handleFavoriteBTN}>
-                    {!hasFavorite ? <FaRegPlusSquare className="text-lg" /> : <></>}
-                    <p className="text-sm">{!hasFavorite ? "즐겨찾기 추가" : "즐겨찾기 추가됨"}</p>
+                    {!hasFavorite ? <FaRegPlusSquare className="text-lg" /> : <FaRegCheckCircle className="md:hidden" />}
+                    <p className="text-sm hidden md:block">{!hasFavorite ? "즐겨찾기 추가" : "즐겨찾기 추가됨"}</p>
                 </button>
             </div>
 

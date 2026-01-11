@@ -30,7 +30,7 @@ export const useWeather = (location: { nx: number, ny: number } | null) => {
       }
     },
     enabled: !!location,
-    staleTime: 1000 * 60 * 5, // 5분 캐시
+    staleTime: Infinity
   })
 
   return {
